@@ -1,0 +1,27 @@
+.Register {
+    height:100vh;
+    background-color: rgb(156, 148, 148);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.Register__content {
+    width:30%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+}
+.Register__title {
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+
+} 
+.Register__button {
+    display: flex;
+ justify-content: center;
+}
