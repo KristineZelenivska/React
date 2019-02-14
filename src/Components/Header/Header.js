@@ -32,11 +32,6 @@ class Header extends Component {
 
   render() { //this is another method of the class.
     const { isOpen } = this.state;
-    const user =
-    {
-      username: "some_user",
-      image: placeHolderImage,
-    }
 
 
     return (
@@ -44,8 +39,9 @@ class Header extends Component {
         <Navbar className="Header" color="light" light expand="md">
           <NavbarBrand >
             <NavCard className="NavCard"
-              username={user.username}
-              image={user.image} />
+              username={this.props.user.username}
+              email={this.props.user.email}
+              image={placeHolderImage} />
           </NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Posts from './Components/Posts/Posts';
-import UserList from "./Components/UserList/UserList"
-import Header from './Components/Header/Header'
+import Posts from './containers/PostsContainer';
+import UserList from "./containers/UsersListContainer"
+import Header from './containers/OneUserContainer'
 
 class App extends Component {
   render() {
@@ -15,8 +15,7 @@ class App extends Component {
           <div className="row">
 
             <div className="col-md-2">
-              something else
-                 </div>
+            </div>
 
             <div className="col-md-6">
               < Posts />
