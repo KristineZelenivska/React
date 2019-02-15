@@ -13,7 +13,8 @@ class Posts extends Component {
                         key={`postCard${i}`}
                         title={post.title}
                         username={post.username}
-                        image={`http://localhost:3000${post.media.path}`} />
+                        image={`http://localhost:3000${post.media.path}`}
+                        createdAt={post.createdAt} />
                 ))}
 
 

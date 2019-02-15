@@ -13,41 +13,26 @@ import './Header.css'
 
 
 class Header extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      isOpen: false, //by default it's not open. 
-    }
-  }
-
-  onOpenModal = () => { //this is method on class
-    this.setState({ isOpen: true }); //on click it will change to true
-  }
-
-  onCloseModal = () => {
-    this.setState({ isOpen: false });
-  }
-
-
   render() { //this is another method of the class.
-    const { isOpen } = this.state;
-
-
+    const { isOpen, toggleModal, onInputChange, onImageUpload, onPostSubmit, user } = this.props;
     return (
       <div>
         <Navbar className="Header" color="light" light expand="md">
           <NavbarBrand >
             <NavCard className="NavCard"
-              username={this.props.user.username}
-              email={this.props.user.email}
+              username={user.username}
+              email={user.email}
               image={placeHolderImage} />
           </NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <Button onClick={this.onOpenModal} color="primary" >Upload</Button>
+              <Button onClick={toggleModal} color="primary" >Upload</Button>
               {
-                isOpen && <PostModal onClose={this.onCloseModal} /> //we pass this modal this prop
+                isOpen && <PostModal
+                  onInputChange={onInputChange}
+                  onImageUpload={onImageUpload}
+                  onPostSubmit={onPostSubmit}
+                  onClose={toggleModal} /> //we pass this modal this prop
               }
             </NavItem>
           </Nav>

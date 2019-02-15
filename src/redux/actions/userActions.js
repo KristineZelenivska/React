@@ -3,7 +3,10 @@
 import CryptoJS from 'crypto-js'
 import BootcampAPI from '../../helpers/BootcampAPI'
 import { API } from '../../constants'
-import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, GET_USERS_SUCCESS, GET_USERS_ERROR, USER_INFO_SUCCESS, USER_INFO_ERROR } from '../../constants/index' //we define them in constants
+import {
+    REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, GET_USERS_SUCCESS,
+    GET_USERS_ERROR, USER_INFO_SUCCESS, USER_INFO_ERROR, POST_IMAGE_SUCCESS, POST_IMAGE_ERROR
+} from '../../constants/index' //we define them in constants
 
 
 
@@ -89,6 +92,37 @@ export const getUsers = () => {
                 dispatch(getUsersError()))
     }
 }
+////////////////////////////////////////
+
+const imageUploadSuccess = res => {
+    return {
+        type: POST_IMAGE_SUCCESS, //required property to check what action was called. 
+        payload: res.data.payload, //optional payload
+    }
+}
+const imageUploadError = () => {
+    return {
+        type: POST_IMAGE_ERROR
+    }
+}
+export const submitPost = (caption, formData) => {
+    return dispatch => {
+        return BootcampAPI.post(API.POST_IMAGE, formData)
+            .then(res => {
+                return BootcampAPI.post(API.POST_CAPTION, {
+                    caption,           //caption: res.payload.media.caption,
+                    contentId: res.data.payload.contentId
+                })
+                    .then(res => dispatch(imageUploadSuccess(res))) //dispatch(imageUploadSuccess())
+
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch(imageUploadError())
+            })
+    }
+}
+
 ////////////////////////////////////////
 
 

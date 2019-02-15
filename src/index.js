@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk'; //for redux to understand that there is async function
 import { Provider } from 'react-redux'
 import dotenv from "dotenv"
@@ -11,10 +11,25 @@ import rootReducer from './redux/reducers/index'
 import App from './App';
 import LoginContainer from "./containers/LoginContainer"
 import RegisterContainer from "./containers/RegisterContainer"
+import ProtectedRoute from './Components/ProtectedRoute/protectedRoute'
 
 dotenv.config()
 
-const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(reduxThunk)));
+
+
+
+// const validateToken = () => {
+//     const token = localStorage.getItem("jwtToken")
+//     if (!token) {
+//         return false
+//     }
+//     return true
+// }
 
 class Root extends Component {
     render() {
@@ -22,7 +37,7 @@ class Root extends Component {
             <Provider store={store}>
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path="/" component={App} />
+                        <ProtectedRoute exact path="/" component={App} />
                         <Route exact path="/login" component={LoginContainer} />
                         <Route exact path="/register" component={RegisterContainer} />
 
@@ -30,7 +45,7 @@ class Root extends Component {
                 </BrowserRouter>
             </Provider>
         )
-    }
+    }//if isAccesible is false t will redirect to login page
 }
 
 //switch is switching between routes.we will have few routes inside it

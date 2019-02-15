@@ -1,52 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logIn } from '../redux/actions/userActions';
-import Login from '../Components/Login/Login';
-import { Redirect } from 'react-router-dom'
-
+import { logIn } from "../redux/actions/userActions";
+import Login from "../Components/Login/Login";
 
 class LoginContainer extends Component {
-
     onLogin = (email, password) => {
-        this.props.logIn(email, password) //value of variable. we pass values
-    }
-    render() {
-        const { isLoggedin } = this.props; //we define isLoggedin here and take it from props
+        if (!email || !password) {
+            return;
+        }
 
-        return (isLoggedin ? (<Redirect to="/" />) :
-            (< Login onLogin={this.onLogin} />)
-        )
-    }
-}
-
-const mapStateToProps = state => { //this is the STORE
-    return {
-        isLoggedin: state.loginReducer.isLoggedin //updated to our props
+        this.props.logIn(email, password).then(() => {
+            this.props.history.push("/");
+        });
     };
-}; const mapDispatchtoProps = {
-    logIn
+
+    render() {
+        return <Login onLogin={this.onLogin} />;
+    }
 }
+
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.loginReducer.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = {
+    logIn
+};
 
 export default connect(
-    mapStateToProps, mapDispatchtoProps
+    mapStateToProps,
+    mapDispatchToProps
 )(LoginContainer);
-
-
-        //name of varaible (onLogin is a method, = to function with values email and password, 
-        //that will call LogIn constant from Actons with passed values email and password. 
-        //logIn looks like this: 
-        // export const logIn = (email, password) => {
-        //     return dispatch => {
-        //         return BootcampAPI.post(API.LOGIN, {
-        //             email,  //body part
-        //             hashedPassword: CryptoJS.SHA256(password).toString()
-        //         })
-        //             .then((res) => {
-        //                 const token = res.data.payload.token //we can cnsole.log response to see what we have in response
-        //                 localStorage.setItem("jwtToken", token);
-
-        //                 dispatch(loginSuccess())
-        //             })
-        //             .catch(() => dispatch(loginError()))
-        //     }
-        // }

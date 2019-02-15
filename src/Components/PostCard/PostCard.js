@@ -9,13 +9,13 @@ import './PostCard.css'
 
 class PostCard extends Component {
     render() {
-        const { title, username, image } = this.props;// image because i gime this in posts when describe props.
+        const { title, username, image, createdAt } = this.props;// image because i gime this in posts when describe props.
         return (
             <Card className="PostCard mb-5">
                 <CardImg top width="100%" src={image} alt="Card image cap" />
                 <CardBody>
                     <CardTitle className="PostCard__card-title">{title}</CardTitle>
-                    <CardText>{username}</CardText>
+                    <CardText className="PostCard__username">Posted by: <br />{username} <br />{createdAt} </CardText>
                 </CardBody>
             </Card>
         )

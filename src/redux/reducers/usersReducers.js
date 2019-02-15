@@ -1,9 +1,15 @@
-import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, GET_USERS_SUCCESS, GET_USERS_ERROR, USER_INFO_SUCCESS, USER_INFO_ERROR } from '../../constants/index'
+import {
+    REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, GET_USERS_SUCCESS, GET_USERS_ERROR,
+    USER_INFO_SUCCESS, USER_INFO_ERROR,
+} from '../../constants/index'
 
 const defaultState = {
     isRegistered: false,
     isLoggedin: false,
     users: null,
+    isUploaded: false,
+    user: null
+
 
 }
 
@@ -42,6 +48,18 @@ export const getUsersReducer = (state = defaultState, action) => {
 
     }
 }
+// //////////////////////////
+// export const imageUploadReducer = (state = defaultState, action) => {
+//     switch (action.type) { //type we wrote in userAction
+//         case POST_IMAGE_SUCCESS:
+//             return { ...state,posts:[action.payload, ...state.posts] } //... means return everything what was inside it. isRegistered is property for state
+//         case POST_IMAGE_ERROR:
+//             return { state, isUploaded: false }
+//         default:
+//             return state
+
+//     }
+// }
 
 //////////////////////////
 export const userInfoReducer = (state = defaultState, action) => {

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import placeHolderImage from '../../Assets/image-placeholder.svg'
 
 import './NavCard.css'
 
 
 class NavCard extends Component {
   render() {
-    const { username, email, image } = this.props;
+    const { username, email } = this.props;
 
     return (
       <div className="NavCard">
         <div className="NavCard__image">
-          <img className="NavCard__image__img" src={image} alt="something" />
+          <img className="NavCard__image__img" src={placeHolderImage} alt="something" />
         </div>
         <div className="NavCard__content">
           <div className="NavCard__content__title">{username}</div>
